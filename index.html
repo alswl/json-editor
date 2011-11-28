@@ -1,355 +1,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>json ÔÚÏß±à¼­Æ÷-½Å±¾Ö®¼Ò</title>
-<style>
-body,html{
-	margin:0px;padding:10px;overflow:hidden;font-size:12px;
-	background:#FFCC66 url(img.gif);color:#333;font-family:tahoma;
-}
-.title{font-size:14px;background:url(img2.gif) no-repeat;padding-left:30px;}
-#ldh_ui_window{
-	width:840px;height:520px; position:absolute;
-	background:#fff url(img3.gif) repeat-x 0 32px;
-	border:2px solid #4A84C4;border-top:none; 
-	left:50%;margin-left:-420px;
-	top:50%;margin-top:-260px;
-}
-#ldh_ui_caption{
-	height:32px;line-height:32px;text-indent:1em;
-	background:url(img4.gif) repeat-x; text-align:center; 
-}
-#ldh_ui_body_left{
-	width:300px;height:450px;overflow:auto;
-	position:absolute;left:10px;top:55px;
-	border:1px solid #4A84C4; 
-}
-#editWindow{width:500px;position:absolute;left:325px;top:55px;	border:1px solid #4A84C4;}
-#tree_cap{height:18px;line-height:18px;text-align:center;background:url(img5.gif) repeat-x;}
-/* toolbar */
-#subToolbar{
-	height:29px;background:url(img6.gif) repeat-x 50% 50%;line-height:29px;	position:relative;width:100%;text-indent:10px;
-}
-#subToolbar a{
-	color:#000;background:url(img7.gif) no-repeat 0% 50%; padding-left:20px;text-decoration:none;
-}
-#subToolbar span{position:absolute; right:10px;bottom:4px;}
-#subToolbar a:hover{color:#fff;background-image:url(format.gif);text-decoration:underline;}
-#subToolbar a#save_as{background-image:url(img9.gif); }
-#subToolbar a#format_indent{background-image:url(img8.gif); }
-#subToolbar a#update{background-image:url(img10.gif); }
-#subToolbar a#format_compress{background-image:url(img11.gif); }
-#subToolbar a#clear_txt{background-image:url(img12.gif); }
-/* end */
-#json_eidit{
-	width:497px; border:none;margin:0px;color:#000; 
-	height:340px;font-size:14px;
-}
-.json_editInfo{
-	line-height:160%; border:1px solid #4A84C4;
-	width:483px;+width:500px; height:65px; color:#003300; 
-	position:absolute;left:325px;bottom:12px;
-}
-#json_editInfo{
-	height:48px; padding-left:60px;padding-top:10px;
-	background:url(img13.gif) no-repeat 28px 12px;
-}
-#json_editInfo b{color:red}
-#ldh_ui_window .err{color:red;background-image:url(img14.gif);}
-#ldh_ui_window .busy{color:#333;background-image:url(img15.gif);}
-#ldh_ui_window .info{color:#006600;background-image:url(img16.gif);}
-#json_editInfo input{width:50px;border:1px solid #4A84C4;height:14px;}
-#json_editInfo  button{
-	background:url(img17.gif) no-repeat;
-	width:70px;height:20px;line-height:20px;text-align:center;
-	border:none;color:#114060;letter-spacing:5px;margin-left:10px;
-}
-/* for tree */
-img,input,select{vertical-align:middle}
-#ldh_ui_window #tree{white-space:nowrap;font-size:12px;line-height:24px;}
-#tree a{text-decoration:none;color:#333;}
-#tree a:hover,#tree a.hot{color:#000;background:#0B92FF;}
-dd,dl,dt{padding:0;margin:0;border:none;font-size:12px;}
-dt img{vertical-align:middle;}
-dt{height:20px;white-space:nowrap;}
-
-</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>json-editor</title>
+<link type="text/css" rel="stylesheet" href="style/style.css"/>
 </head>
 <body>
 <div id="ldh_ui_window">
-	<div id="ldh_ui_caption"><strong class="title">JSON ±à¼­Æ÷</strong></div>
-		<div id="ldh_ui_body_left">
-			<div id="tree_cap">Ê÷ÊÓÍ¼</div>
-			<div id="tree"></div>
-		</div>	
-		<div id="editWindow">
-			<div id="subToolbar">
-				<a href="javascript:void(0)" title="" id="format_indent">Ëõ½ø</a> | 
-				<a href="javascript:void(0)" title="" id="format_compress">½ô´Õ</a> | 
-				<a href="javascript:void(0)" title="" id="update">Ë¢ĞÂÊÓÍ¼</a> | 
-				<a href="javascript:void(0)" title="" id="clear_txt">Çå¿Õ</a> | 
-				<a href="javascript:void(0)" title="" id="save_as">Áí´æÎª</a>
-				<span>
-					<label for="autoUpdate"><input type="checkbox" id="autoUpdate" checked /> Í¬²½¸üĞÂÊ÷ÊÓÍ¼</label>
-				</span>
-			</div>
-			<div id="edit">
-			 <textarea id="json_eidit" >[{"ÖĞ¹úÊ³Æ×":["ÉÏº£×íĞ·","±±¾©¹øÉÕ¼¦","´¨Ê½Á¹°èôø¶¹","ÇåÕæ½´Å£Èâ"],"¹úÍâÊ³Æ×":["Ì©Ê½ÄûÃÊÈâÆ¬","¼¦Áøºº±¤","Õô¹ğÓã¾í "],"¸ü¶à":{"ÖĞÊ½":["ÄÏ","±±",{"µØ·½":["Ğ¡³Ô","´ó²Í"]},"¸ü¶àÑ¡Ôñ"]}},{"²ËÆ×·ÖÀà":["ÉÏº£²Ë","¹óÖİ²Ë","³±ÉÇ²Ë","ÔÆÄÏ²Ë","¶«±±²Ë","°²»Õ²Ë","¹ã¶«²Ë","Õã½­²Ë","ºşÄÏ²Ë"]},"ÆäËü"]</textarea>
-			</div>
+	<div id="ldh_ui_caption"><strong class="title">JSON ç¼–è¾‘å™¨</strong></div>
+	<div id="ldh_ui_body_left">
+		<div id="tree_cap">æ ‘è§†å›¾</div>
+		<div id="tree"></div>
+	</div>	
+	<div id="editWindow">
+		<div id="subToolbar">
+			<a href="javascript:void(0)" title="" id="format_indent">ç¼©è¿›</a> | 
+			<a href="javascript:void(0)" title="" id="format_compress">ç´§å‡‘</a> | 
+			<a href="javascript:void(0)" title="" id="update">åˆ·æ–°è§†å›¾</a> | 
+			<a href="javascript:void(0)" title="" id="clear_txt">æ¸…ç©º</a> | 
+			<a href="javascript:void(0)" title="" id="save_as">å¦å­˜ä¸º</a>
+			<span>
+				<label for="autoUpdate"><input type="checkbox" id="autoUpdate" checked /> åŒæ­¥æ›´æ–°æ ‘è§†å›¾</label>
+			</span>
 		</div>
-		<fieldset class="json_editInfo"> <legend>ÏµÍ³ÏûÏ¢</legend>
-			<div id="json_editInfo" class="busy">ÕıÔÚ¼ÓÔØÍ¼Æ¬,ÇëÉÔºò...</div>
-		</fieldset>
+		<div id="edit">
+			<textarea id="json_eidit" >[{"ä¸­å›½é£Ÿè°±":["ä¸Šæµ·é†‰èŸ¹","åŒ—äº¬é”…çƒ§é¸¡","å·å¼å‡‰æ‹Œè±‡è±†","æ¸…çœŸé…±ç‰›è‚‰"],"å›½å¤–é£Ÿè°±":["æ³°å¼æŸ æª¬è‚‰ç‰‡","é¸¡æŸ³æ±‰å ¡","è’¸æ¡‚é±¼å· "],"æ›´å¤š":{"ä¸­å¼":["å—","åŒ—",{"åœ°æ–¹":["å°åƒ","å¤§é¤"]},"æ›´å¤šé€‰æ‹©"]}},{"èœè°±åˆ†ç±»":["ä¸Šæµ·èœ","è´µå·èœ","æ½®æ±•èœ","äº‘å—èœ","ä¸œåŒ—èœ","å®‰å¾½èœ","å¹¿ä¸œèœ","æµ™æ±Ÿèœ","æ¹–å—èœ"]},"å…¶å®ƒ"]</textarea>
+		</div>
+	</div>
+	<fieldset class="json_editInfo"> <legend>ç³»ç»Ÿæ¶ˆæ¯</legend>
+		<div id="json_editInfo" class="busy">æ­£åœ¨åŠ è½½å›¾ç‰‡,è¯·ç¨å€™...</div>
+	</fieldset>
 </div>
 </body>
-<script>
-
-/*
-main Object
-*/
-
-JE={
-
-	data:{},/* ¹ØÁªÊı¾İ */
-	code:false,/* ¸ñÊ½»¯ºóµÄ´úÂë */
-	oldCode:[],/* ÀúÊ·´úÂë */
-	editUI:null,/* ¹ØÁª±à¼­¿ò */
-	msgUI:null,/* ĞÅÏ¢ÏÔÊ¾´°¿Ú */
-	treeUI:null,/* Ê÷´°¿Ú */
-	name:'JE',/* ÊµÀıÃû */
-	root:'<b>JSONÎŞÓÇ</b>',/* ¸ù½Úµã±êÌâ */
-	checkbox:0,/* ÊÇ·ñÌí¼Ó¸´¿ò */
-	hot:null,/* Ñ¡ÖĞ½Úµã */
-	indent:'    ',/*Ëõ½ø·û'\t'»òÕß4¸ö' '*/
-	firstUp:true,/*µÚÒ»´Î×Ô¶¯Ë¢ĞÂ*/
-	onclick:Array,/*Ê÷µã»÷Í¨Öª*/
-	countInfo:'',/*Í³¼ÆĞÅÏ¢*/
-	formating:false,/* ¸ñÊ½»¯ÖĞ(½ûÖ¹ÖØ¹¹Ê÷) */
-
-	ico:{/* Ê÷Í¼±ê */
-		//ÎÄ¼ş¼Ğ½á¹¹Ïß
-		r0:'img18.gif',
-		r0c:'img19.gif',
-		r1:'img20.gif',
-		r1c:'img21.gif',
-		r2:'img22.gif',
-		r2c:'img23.gif',
-		//Ç°×ºÍ¼Æ¬
-		nl:'img24.gif',
-		vl:'img25.gif',
-		//ÎÄ¼ş½á¹¹Ïß
-		f1:'img26.gif',
-		f2:'img27.gif',
-		root:'img28.gif',
-		//ÎÄ¼ş¼Ğ
-		arr:'img29.gif',
-		arrc:'img30.gif',
-		obj:'img31.gif',
-		objc:'img32.gif',
-		//ÎÄ¼ş
-		arr2:'img33.gif',
-		obj2:'img34.gif'
-	},
-
-	toTree:function(){/* JSON×ª»»ÎªÊ÷HTML,Í¬Ê±¸ñÊ½»¯´úÂë */
-		var draw=[],This=this,ico=this.ico;
-		JE.firstUp=false;/*Íê³ÉÊ×´Î×Ô¶¯¹¹Ôì*/
-		var notify=function(prefix/*Ç°×ºHTML*/,lastParent/*¸¸ÊÇ·ñÊÇÎ²½Úµã(È·¶¨Í¼±êÊÇ¿Õ°×|½á¹¹Ïß)*/,name/*½ÚµãÃû*/,value/*½ÚµãÖµ*/,formObj/* ¸¸ÊÇ·ñÊÇ¶ÔÏó(È·¶¨×ÓÍ¼±ê) */){/* ¹¹Ôì×Ó½Úµã */
-			var rl=prefix==''?ico.r0:lastParent?ico.r1:ico.r2;/* ÅäÖÃ¸ù½ÚµãÍ¼±ê */
-			if(value&&value.constructor==Array){/* ´¦ÀíÊı×é½Úµã */
-				draw.push('<dl><dt>',This.draw(prefix,rl,ico.arr,name,''),'</dt><dd>');/* »æÖÆÎÄ¼ş¼Ğ */
-				for (var i=0;i<value.length;i++)
-					notify(prefix+This.img(lastParent?ico.nl:ico.vl),i==value.length-1,i,value[i]);
-				draw.push('</dd></dl>');
-			}else	if(value&&typeof value=='object'){/* ´¦Àí¶ÔÏó½Úµã */
-					draw.push('<dl><dt>',This.draw(prefix,rl,ico.obj,name,''),'</dt><dd>');/* »æÖÆÎÄ¼ş¼Ğ */
-					var len=0,i=0;
-					for(var key in value)len++;/* »ñÈ¡¶ÔÏó³ÉÔ±×ÜÊı */
-					for(var key in value)notify(prefix+This.img(lastParent?ico.nl:ico.vl),++i==len,key,value[key],true);
-					draw.push('</dd></dl>');
-				}else{/* ´¦ÀíÒ¶½Úµã(»æÖÆÎÄ¼ş) */
-					draw.push('<dl><dt>',This.draw(prefix,lastParent?ico.f1:ico.f2,formObj?ico.obj2:ico.arr2,name,value),'</dt></dl>');
-				};
-		};/* ²»ÊÇ[]»òÕß{}²»»æÖÆ */
-		if(typeof this.data=='object'){notify('',true,this.root,this.data);};
-		if(this.treeUI)this.treeUI.innerHTML=draw.join('');/* ÏÔÊ¾ÔÚÊ÷´°¿Ú */
-		this.msg('³É¹¦¹¹ÔìÊ÷ÊÓÍ¼!');
-	},
-
-	draw:function(prevfix,line,ico,name,value){/* ×ÓÏîHTML¹¹ÔìÆ÷ */
-		var cmd=false,J=this.ico,imgName=false;
-		switch (line)	{//´«µİÇĞ»»Í¼±ê
-			case J.r0:imgName='r0';break;
-			case J.r1:imgName='r1';break;
-			case J.r2:imgName='r2';
-		}
-		if(imgName)cmd=' onclick="'+this.name+'.show(this,\''+imgName+'\')" ';/* ¼ÓÈëÕÛµşÃüÁî */
-		var type=typeof name=='string'?'(¶ÔÏó³ÉÔ±)':'(Êı×éË÷Òı)';
-		return prevfix+this.img(line,cmd)
-			+(this.checkbox?'<input type="checkbox" onclick="'+this.name+'.select(this)" />':'')
-			+this.img(ico)+' <a href="javascript:void(0)" onclick="'+this.name+'.click(this);" '
-			+'key="'+name+'" val="'+value+'" >'
-			+name+type+(value==''?'':' = ')+value+'</a>'
-	},
-	img:function(src,attr){/* img HTML¹¹Ôì */
-		return '<img src="'+src+'" '+(attr||'')+'  />';
-	},
-	click:function(item){/* ×ÓÏîµã»÷Í³Ò»»Øµ÷ */
-		if(this.hot)this.hot.className='';
-		this.hot=item;
-		this.hot.className='hot';/* ÇĞ»»Ñ¡ÖĞÏî */
-		this.onclick(item);
-	},
-
-	format:function(txt,compress/*ÊÇ·ñÎªÑ¹ËõÄ£Ê½*/){/* ¸ñÊ½»¯JSONÔ´Âë(¶ÔÏó×ª»»ÎªJSONÎÄ±¾) */
-		if(/^\s*$/.test(txt))return this.msg('Êı¾İÎª¿Õ,ÎŞ·¨¸ñÊ½»¯! ');
-		try{var data=eval('('+txt+')');}
-		catch(e){
-			JE.editUI.style.color='red';
-			return this.msg('Êı¾İÔ´Óï·¨´íÎó,¸ñÊ½»¯Ê§°Ü! ´íÎóĞÅÏ¢: '+e.description,'err');
-		};
-		JE.editUI.style.color='#000';
-		var draw=[],last=false,This=this,line=compress?'':'\n',nodeCount=0,maxDepth=0;
-		var notify=function(name,value,isLast,indent/*Ëõ½ø*/,formObj){
-			nodeCount++;/*½Úµã¼ÆÊı*/
-			for (var i=0,tab='';i<indent;i++ )tab+=This.indent;/* Ëõ½øHTML */
-			tab=compress?'':tab;/*Ñ¹ËõÄ£Ê½ºöÂÔËõ½ø*/
-			maxDepth=++indent;/*Ëõ½øµİÔö²¢¼ÇÂ¼*/
-			if(value&&value.constructor==Array){/*´¦ÀíÊı×é*/
-				draw.push(tab+(formObj?('"'+name+'":'):'')+'['+line);/*Ëõ½ø'[' È»ºó»»ĞĞ*/
-				for (var i=0;i<value.length;i++)
-					notify(i,value[i],i==value.length-1,indent,false);
-				draw.push(tab+']'+(isLast?line:(','+line)));/*Ëõ½ø']'»»ĞĞ,Èô·ÇÎ²ÔªËØÔòÌí¼Ó¶ººÅ*/
-			}else	if(value&&typeof value=='object'){/*´¦Àí¶ÔÏó*/
-					draw.push(tab+(formObj?('"'+name+'":'):'')+'{'+line);/*Ëõ½ø'{' È»ºó»»ĞĞ*/
-					var len=0,i=0;
-					for(var key in value)len++;
-					for(var key in value)notify(key,value[key],++i==len,indent,true);
-					draw.push(tab+'}'+(isLast?line:(','+line)));/*Ëõ½ø'}'»»ĞĞ,Èô·ÇÎ²ÔªËØÔòÌí¼Ó¶ººÅ*/
-				}else{
-						if(typeof value=='string')value='"'+value+'"';
-						draw.push(tab+(formObj?('"'+name+'":'):'')+value+(isLast?'':',')+line);
-				};
-		};
-		var isLast=true,indent=0;
-		notify('',data,isLast,indent,false);
-		this.countInfo='¹²´¦Àí½Úµã<b>'+nodeCount+'</b>¸ö,×î´óÊ÷ÉîÎª<b>'+maxDepth+'</b>';
-		return draw.join('');
-	},
-	msg:function(text,type){/* ±à¼­×´Ì¬»òÕß´íÎóÍ¨Öª */
-		if(!this.msgUI)return alert(text);
-		with(new Date)var now=([getHours(),getMinutes(),getSeconds()].join(':')).replace(/\b\d\b/g,'0$&');
-		this.msgUI.innerHTML='<div>['+now+'] &nbsp;&nbsp;'+text.replace(/\n/g,'<br/>')+'</div>';
-		this.msgUI.className=type;
-	},
-	show:function (ico,id){/* ÏÔÒşÊ÷½Úµã */
-		var subView=ico.parentNode.parentNode.childNodes[1].style,J=this.ico;
-		if(subView.display=='none'){
-			subView.display='';
-			 ico.src=J[id];
-		}else{
-			subView.display='none';
-			 ico.src=J[id+'c'];
-		};
-	},
-	select:function (sender){
-		var sub=sender.parentNode.parentNode.getElementsByTagName("INPUT");
-		for (var i=0;i<sub.length;i++ ) {sub[i].checked=sender.checked;}
-	}
-};
-
-JE.add=function(){
-	this.msg('¹¦ÄÜÌí¼ÓÖĞ...*_^');
-}
-
-JE.editItem=function(){
-	this.msg('¹¦ÄÜÌí¼ÓÖĞ...*_^');
-}
-
-JE.begin=function(){/* ÉèÖÃUI¿Ø¼ş¹ØÁªÏìÓ¦ */
-	var $=function (id){return document.getElementById(id)};
-	/* ¹ØÁªUI */
-	JE.editUI=$("json_eidit");
-	JE.msgUI=$("json_editInfo");
-	JE.treeUI=$("tree");
-	var updateUI=$("update");
-	var auto=$("autoUpdate");
-	var fontSize=$("fontSize");
-	/* µ¥»÷Ê÷×ÓÏî */
-	JE.onclick=function(item){
-		var key='¼üÃû: <input value="'+item.getAttribute('key')+'" />',
-			val='  ¼üÖµ: '+(item.getAttribute('val')==''?'³ÉÔ±ÁĞ±í':'<input value="'+item.getAttribute('val')+'" />'),
-			add='<button onclick="'+this.name+'.add(this)">ĞÂÔö</button>',
-			edit='<button onclick="'+this.name+'.editItem(this)">ĞŞ¸Ä</button>';
-		JE.msg(key+val+add+edit,'info');
-	}
-	/* ¼àÌı´úÂë±ä»¯ÊÂ¼ş */
-	JE.editUI.oninput=JE.editUI.onpropertychange=function (){
-		if(JE.formating)return;/* ¸ñÊ½»¯²»Ë¢ĞÂÊ÷ */
-		if(/^\s*$/.test(this.value))return  JE.msg('ÇëÊäÈëJSON¸ñÊ½µÄ´úÂë!');;
-		clearTimeout(JE.update);
-		try{JE.data=eval('('+this.value+')');	
-		}catch(e){
-			JE.editUI.style.color='red';
-			return JE.msg("Ô´´úÂëÓĞ´íÎó: "+e.description+' , Èç¹ûÕıÔÚ±à¼­ÖĞ, ÇëºöÂÔ´ËÏûÏ¢!','err');
-		};
-		JE.editUI.style.color='#000';
-		if(auto.checked||JE.firstUp){/*ÈôÍ¬²½*/
-			JE.msg('Óï·¨ÕıÈ·,ÕıÔÚÖØĞÂ¹¹ÔìÊ÷,ÇëÉÔºò...','busy');
-			JE.update=setTimeout(function(){
-				JE.toTree();
-			},450);
-		}else{
-			JE.msg('Óï·¨ÕıÈ·,Çëµã»÷Ë¢ĞÂ,»òÕß´ò¿ªÊÓÍ¼Í¬²½¿ª¹Ø,»òÕß¼ÌĞø±à¼­!')
-		}
-		return true;
-	};
-	if(window.ActiveXObject)
-		document.execCommand("BackgroundImageCache", false, true);
-	/* À¹½ØTab,×Ô¶¯¸ñÊ½»¯ */
-	JE.editUI.onkeydown=function (){
-		if(event.keyCode==9){$('format_indent').onclick();event.returnValue=false;};
-		JE.code=this.value;
-	}
-	/* ¸ñÊ½»¯ */
-	var format=function(compress){
-		var code=JE.format(JE.editUI.value,compress);
-		JE.formating=true;
-		if(code)JE.editUI.value=code;
-		JE.editUI.focus();
-		setTimeout(function(){JE.formating=false;},1000);
-		return code;
-	}
-	/* ¹¤¾ßÀ¸°´Å¥ */
-	$('format_indent').onclick=function (){if(format())JE.msg('Íê³ÉËõ½ø·ç¸ñ×ª»»,'+JE.countInfo)}
-	$('format_compress').onclick=function (){if(format(true)!=undefined)JE.msg('Íê³É½ô´Õ·ç¸ñ×ª»»,'+JE.countInfo);}
-	updateUI.onclick=function (){
-		JE.firstUp=true;
-		JE.editUI.onpropertychange()?JE.msg('³É¹¦Ë¢ĞÂÊÓÍ¼!'):JE.msg('Êı¾İÓĞÎó,Ë¢ĞÂÊ§°Ü!','err')
-		JE.firstUp=false;
-	};
-	$('clear_txt').onclick=function (){JE.editUI.value=JE.treeUI.innerHTML='';JE.editUI.focus();}
-	auto.onclick=function (){JE.msg('×Ô¶¯Í¬²½ÊÓÍ¼¹¦ÄÜ'+(this.checked?'¿ªÆô':'¹Ø±Õ!'));};
-	/* Áí´æÎª */
-	if(/*@cc_on !@*/true){$('save_as').style.display='none'};
-	$('save_as').onclick=function (){
-		var d=document,w=d.createElement('IFRAME');
-		w.style.display="none";
-		d.body.appendChild(w);
-		setTimeout(function(){
-			var g=w.contentWindow.document;
-			g.charset = 'utf-8';
-			g.body.innerHTML=JE.editUI.value;
-			g.execCommand("saveas",'', "json.txt") ;
-		},1);
-	}
-};
-
-/* ´ÓÕâÀï¿ªÊ¼ */
+<script type="text/javascript" src="js/je.js"></script>
+<script type="text/javascript">
+/* ä»è¿™é‡Œå¼€å§‹ */
 window.onload=function (){
 	JE.begin();
 }
-
 </script>
 </html>
