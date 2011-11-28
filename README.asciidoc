@@ -1,0 +1,25 @@
+json-editor
+===========
+
+:author: alswl
+:email: alswlx@gmail.com
+:toc:
+:numbered:
+
+关于json-editor
+-------------
+
+json-editor是jb51提供的一个在线JSON编辑器，
+地址是http://tools.jb51.net/tools/json/json_editor.htm。
+这个编辑器功能还蛮强大，但是看上去样式有点老。
+
+我就把代码取过来，想把它整理一下。
+
+TODO
+----
+
+* 重新设计美化HTML/CSS
+* 引入jQuery
+* 梳理Javascript代码，尝试重构
+
+// vim: set ft=asciidoc:
